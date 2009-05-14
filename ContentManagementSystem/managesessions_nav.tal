@@ -1,0 +1,12 @@
+<div xmlns:tal="http://axiomstack.com/tale" id="columnLeft" class="columnLeft">
+  <div class="section">
+	<h2>Session Data</h2>
+	<ul>
+	  <li>Data</li>
+	</ul>
+  </div>
+
+  <div class="section last">
+	<h2>Trivia</h2>
+  </div>
+</div>

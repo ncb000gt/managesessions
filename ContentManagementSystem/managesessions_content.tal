@@ -1,0 +1,26 @@
+<div id="columnRight" class="columnRight" xmlns:tal="http://axiomstack.com/tale">
+  <div id="Messages"> </div>
+  <div id="ContentWrapper">
+	<div id="TableWrapper">
+	  <div id="ContentTable"></div>
+	</div>
+  </div>
+
+  <div dojoType="ContentPane" executeScripts="true" scriptSeperation="false" cacheContent="false" id="EditBody">
+  </div>
+
+  <script type="text/javascript">
+    dojo.require("axiom.widget.SessionTable");
+    axiom.ctable = dojo.widget.createWidget(
+    "axiom:SessionTable",
+    {
+    appPath:axiom.appPath,
+    staticPath: axiom.staticPath
+    },
+    dojo.byId("ContentTable")
+    );
+    axiom.ctable.runSearch();
+    axiom.showContent();
+    axiom.showContentTable();
+  </script>
+</div>
