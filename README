@@ -1,0 +1,15 @@
+Manage Sessions
+--------------
+
+This is a module for Axiom CMS applications that lets you control the sessions of the users from within the CMS.
+It shows you the start time of the session, how long it should last for, end time, and even allows you to log that session out.
+
+
+Usage
+------
+
+To use this module just put the code in your modules directory.
+
+<axiom root>/modules
+
+Then, make sure to add the module to your list of modules in your app.properties file, but put it after the cms module.
