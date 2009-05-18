@@ -8,15 +8,34 @@ function getSessions() {
 }
 
 function extractSessions(result){
-	var obj = {
-	    id: result.id,
-	    _id: result._id,
-	    username: (result.user)?(result.user.getUsername()|result.user.username):'No Username',
-	    created: "Session Started: " + result.getOnSince(),
-	    lastmodified: "Last Login/Logout: " +result.getLastModified(),
-	    lastactive: "Last Activity: " + result.getLastActive(),
-	    timeremaining: result.getTimeRemaining()
-	};
+    var remaining = (result.getTimeRemaining()/(60000))+'';
+    var idx = remaining.indexOf('.');
+    var obj = {
+	id: result._id,
+	_id: result._id,
+	username: (result.user)?(result.user.getUsername()||result.user.username):'No Username',
+	created: "Session Started: " + result.getOnSince().format('hh:mm'),
+	lastactive: "Last Activity: " + result.getLastActive().format('hh:mm'),
+	timeremaining: remaining.substring(0,idx+3)
+    };
 
-	return obj;
+    return obj;
+}
+
+function getSessionsData() {
+    function sort_sessions(a, b) {
+	var a_la = a.getLastActive().getTime();
+	var b_la = b.getLastActive().getTime();
+	if (a_la > b_la) return 1;
+	else if (a_la == b_la) return 0;
+	return -1;
+    }
+
+    var sessions = app.getSessions();
+    sessions.sort(sort_sessions);
+
+    return {
+	total: sessions.length,
+	leastactive: sessions[0]._id
+    };
 }

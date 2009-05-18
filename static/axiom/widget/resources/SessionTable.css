@@ -3,3 +3,5 @@
 .col_sort { display:none;  }
 .ContentTable th {height:31px; *height:22px !important;}
 .term {float:left; padding-top:5px;}
+.col_location {width: 20%;}
+.col_type {width:20%;}

@@ -1,8 +1,9 @@
 <div xmlns:tal="http://axiomstack.com/tale" id="columnLeft" class="columnLeft">
   <div class="section">
 	<h2>Session Data</h2>
-	<ul>
-	  <li>Data</li>
+	<ul tal:var="sessions_data: this.getSessionsData()">
+	  <li tal:text="$"><span>Total Sessions:</span> ${sessions_data.total}</li>
+	  <li tal:text="$"><span>Least Active ID:</span> ${sessions_data.leastactive}</li>
 	</ul>
   </div>
 

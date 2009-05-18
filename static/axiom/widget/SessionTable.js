@@ -23,7 +23,7 @@ dojo.widget.defineWidget(
 	data:{},
 	rowInfoIndex: {},
 	noContentText: 'No results found.',
-	numCols: 4,
+	numCols: 5,
         templatePath:new dojo.uri.dojoUri('../axiom/widget/resources/SessionTable.html'),
 	templateCssPath:new dojo.uri.dojoUri('../axiom/widget/resources/SessionTable.css'),
 	previous:function(){
@@ -302,6 +302,7 @@ dojo.widget.defineWidget(
 	},
 	insertRow:function(obj) {
 	    var cols = [
+		{content:''},
 		{content: obj.id, 'class': 'col_title'},
 		{content: ''},
 		{content: obj.username, 'class': 'col_location'},
@@ -330,8 +331,7 @@ dojo.widget.defineWidget(
 		    {
 			id: obj_id+ 'edited',
 			cols: [
-			    {content: obj.lastactive},
-			    {content: obj.lastmodified}
+			    {content: obj.lastactive}
 			]
 		    }
 		)

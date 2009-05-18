@@ -1,7 +1,8 @@
 function managesessions_initialize() {
     var tab = {
 	href: '/cms/managesessions',
-	title: 'Session Management',
+	highlight_action: 'managesessions',
+	title: 'Sessions',
 	roles: ['Administrator']
     };
 
