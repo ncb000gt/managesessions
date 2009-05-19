@@ -14,8 +14,8 @@ function extractSessions(result){
 	id: result._id,
 	_id: result._id,
 	username: (result.user)?(result.user.getUsername()||result.user.username):'No Username',
-	created: "Session Started: " + result.getOnSince().format('hh:mm'),
-	lastactive: "Last Activity: " + result.getLastActive().format('hh:mm'),
+	created: "Session Started: " + result.getOnSince().format('hh:mm a'),
+	lastactive: "Last Activity: " + result.getLastActive().format('hh:mm a'),
 	timeremaining: remaining.substring(0,idx+3)
     };
 
