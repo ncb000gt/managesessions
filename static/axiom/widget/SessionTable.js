@@ -16,6 +16,7 @@ dojo.widget.defineWidget(
     axiom.widget.IOTable,
     function(){},
     {
+	logoutSessionsButton: null,
 	activeRow: null,
 	selectedRows: {},
 	nextSet:false,
@@ -119,28 +120,35 @@ dojo.widget.defineWidget(
 		this.onUnselect(row);
 	    }
 	},
-	endSessions:function(){
-	    if(!dojo.html.hasClass(this.endSessionsButton, 'form-button-disabled')){
+	onSelect:function(row){
+	    this.selectedRows[row.id] = true;
+	    this.checkButton(this.logoutSessionsButton);
+	},
+	onUnselect:function(row){
+	    delete this.selectedRows[row.id];
+	    this.checkButton(this.logoutSessionsButton);
+	},
+	checkButton: function(button){
+	    var enable = false;
+	    for(var i in this.selectedRows){enable = true; break;}
+	    if(enable){
+		dojo.html.removeClass(button, 'form-button-disabled');
+	    } else{
+		dojo.html.addClass(button, 'form-button-disabled');
+	    }
+	},
+	logoutSessions: function() {
+	    if(!dojo.html.hasClass(this.logoutSessionsButton, 'form-button-disabled')){
 		dojo.io.bind(
 		    {
-			url: axiom.cmsPath + 'childCountById',
+			url: axiom.cmsPath + 'logoutSessions',
 			method: 'post',
 			contentType: 'text/json',
 			mimetype: 'text/json',
 			postContent: dojo.json.serialize({ids: this.selectedRows}),
 			load: function(type, data, evt) {
-			    var objects = [];
-			    var num_children = data;
-			    for (var id in num_children) {
-				objects.push(
-				    {
-					title: dojo.byId(id).getElementsByTagName('td')[2].innerHTML,
-					id: id,
-					num_children: (num_children[id] || '0')
-				    }
-				);
-			    }
-			    //axiom.openModal({ widget: dojo.widget.createWidget("axiom:DeleteObjectsModal", {appPath:axiom.appPath, staticPath: axiom.staticPath, objects:objects}) });
+			    axiom.openModal({content:"Selected sessions have been logged out."});
+			    axiom.ctable.runSearch();
 			    return;
 			}
 		    }
@@ -156,7 +164,7 @@ dojo.widget.defineWidget(
 	    var buttons = [];
 	    var button_holder = document.createElement('td');
 
-	    var colSpan = 3;
+	    var colSpan = 5;
 
 	    button_holder.setAttribute('colSpan', colSpan);
 	    dojo.html.addClass(button_holder, 'lastRow');
@@ -449,7 +457,7 @@ dojo.widget.defineWidget(
 		this.widget.columnHeaders.style.display = '';
 	    }
 
-	    var logout_data = {text:'Logout Sessions', callback: 'logoutSessionsObjects'};
+	    var logout_data = {text:'Logout Sessions', callback: 'logoutSessions'};
 
 	    var buttons;
 	    if(data.results.length != 0){

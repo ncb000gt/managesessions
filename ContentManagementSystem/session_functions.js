@@ -39,3 +39,12 @@ function getSessionsData() {
 	leastactive: sessions[0]._id
     };
 }
+
+function logoutSessions() {
+    var sessions = req.data.ids;
+    for each(var session in app.getSessions()) {
+	if (session._id in sessions) {
+	    session.logout();
+	}
+    }
+}
